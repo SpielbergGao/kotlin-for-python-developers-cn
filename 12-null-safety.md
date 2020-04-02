@@ -1,13 +1,13 @@
 ## 使用空值
 
-没有引用任何内容的变量引用为 `null`（或者您可以说变量`为 null`）。 与Python中的 `None` 相反，`null` 不是对象-它只是一个关键字，用于使变量不指向任何内容或检查其是否起作用（必须使用 `==` 或 `！=`）。 由于空值是编程错误的常见来源，因此 Kotlin 鼓励尽可能避免它们-除非声明为允许空值，否则变量实际上不能为空值，您可以在类型名后加上 `？`。 例如：
+A variable that doesn't refer to anything refers to `null` (or you can say that the variable "is null"). As opposed to `None` in Python, `null` is not an object - it's just a keyword that is used to make a variable refer to nothing or to check if it does (that check must be performed with `==` or `!=`). Because nulls are a frequent source of programming errors, Kotlin encourages avoiding them as much as possible - a variable cannot actually be null unless it's been declared to allow for null, which you do by suffixing the type name with `?`. For example:
 
 ```kotlin
 fun test(a: String, b: String?) {
 }
 ```
 
-编译器将允许将此函数称为例如 `test("a"，"b")` 或 `test("a"，null)`，但不作为 `test(null，"b"）`或 `test(null，null)`。 仅当编译器可以证明 `a` 不可能为空时，才允许调用 `test(a，b)`。 在 `test` 内部，编译器将不允许您对 `b` 进行任何操作，否则如果 `b` 恰好为 null，则会导致异常-因此您可以执行 `a.length`，但不能执行 `b.length`。 但是，一旦您处于检查 `b` 不为 null 的条件中，就可以这样做：
+The compiler will allow this function to be called as e.g. `test("a", "b")` or `test("a", null)`, but not as `test(null, "b")` or `test(null, null)`. Calling `test(a, b)` is only allowed if the compiler can prove that `a` cannot possibly be null. Inside of `test`, the compiler will not allow you to do anything with `b` that would result in an exception if `b` should happen to be null - so you can do `a.length`, but not `b.length`. However, once you're inside a conditional where you have checked that `b` is not null, you can do it:
 
 ```kotlin
 if (b != null) {
@@ -25,7 +25,7 @@ if (b == null) {
 }
 ```
 
-频繁进行空值检查很烦人，因此，如果必须考虑可能存在空值，那么 Kotlin 中有几个非常有用的运算符可以简化使用可能为空值的操作，如下所述。
+Making frequent null checks is annoying, so if you have to allow for the possibility of nulls, there are several very useful operators in Kotlin to ease working with values that might be null, as described below.
 
 
 ## 安全调用操作符
